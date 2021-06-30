@@ -4,7 +4,7 @@ export class KeyboardEventManager {
     constructor(eventTarget) {
         this.#eventTarget = eventTarget;
     }
-    keyDownUp(keyboardEventInit) {
+    async keyDownUp(keyboardEventInit, { wait = 1 } = {}) {
         const patch = {
             bubbles: true,
             cancelable: true,
@@ -14,18 +14,22 @@ export class KeyboardEventManager {
         const keyboardEventUp = new KeyboardEvent("keyup", pKeyboardEventInit);
         this.#eventTarget.dispatchEvent(keyboardEventDown);
         this.#eventTarget.dispatchEvent(keyboardEventUp);
+        await this.sleep(wait);
         return this;
     }
     async insertText(text, { wait = 1 } = {}) {
         this.#eventTarget.focus();
         this.#eventTarget.value = text;
-        const uiEvent = new UIEvent("input");
+        const uiEvent = new UIEvent("input", {
+            bubbles: true,
+            cancelable: true,
+        });
         this.#eventTarget.dispatchEvent(uiEvent);
         await this.sleep(wait);
         return this;
     }
     sleep(msec) {
-        return(new Promise(resolve => setTimeout(resolve,msec)));
+        return (new Promise(resolve => setTimeout(resolve, msec)));
     }
 }
 
