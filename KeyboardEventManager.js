@@ -15,7 +15,6 @@ export class KeyboardEventManager {
         this.#eventTarget.dispatchEvent(keyboardEventDown);
         this.#eventTarget.dispatchEvent(keyboardEventUp);
         await this.sleep(wait);
-        return this;
     }
     async insertText(text, { wait = 1 } = {}) {
         this.#eventTarget.focus();
@@ -26,7 +25,6 @@ export class KeyboardEventManager {
         });
         this.#eventTarget.dispatchEvent(uiEvent);
         await this.sleep(wait);
-        return this;
     }
     sleep(msec) {
         return (new Promise(resolve => setTimeout(resolve, msec)));
