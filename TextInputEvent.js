@@ -14,6 +14,7 @@ export class KeyboardEventManager {
         const keyboardEventUp = new KeyboardEvent("keyup", pKeyboardEventInit);
         this.#eventTarget.dispatchEvent(keyboardEventDown);
         this.#eventTarget.dispatchEvent(keyboardEventUp);
+        return this;
     }
     async insertText(text, { wait = 1 } = {}) {
         this.#eventTarget.focus();
@@ -21,10 +22,11 @@ export class KeyboardEventManager {
         const uiEvent = new UIEvent("input");
         this.#eventTarget.dispatchEvent(uiEvent);
         await this.sleep(wait);
+        return this;
     }
     sleep(msec) {
         return(new Promise(resolve => setTimeout(resolve,msec)));
     }
 }
 
-const keyboardEventManager = new KeyboardEventManager(scrapboxDOM.textInput);
+export const keyboardEventManager = new KeyboardEventManager(scrapboxDOM.textInput);
