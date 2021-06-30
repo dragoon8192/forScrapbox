@@ -27,7 +27,7 @@ export class KeyboardEventManager {
         await this.sleep(wait);
     }
     async selectWord() {
-        await this.keyDownUp({keyCode:"37", key:"ArrowLeft", code:"ArrowLeft"});
+        await this.keyDownUp({keyCode:"37", key:"ArrowLeft", code:"ArrowLeft", shiftKey:true, ctrlKey:true,});
     }
     sleep(msec) {
         return (new Promise(resolve => setTimeout(resolve, msec)));
